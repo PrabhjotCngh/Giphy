@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class GiphyCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var ivImageView: UIImageView!
+    @IBOutlet weak var ivImageView: SDAnimatedImageView!
     
     var gifURL: String? {
       didSet {
@@ -30,15 +31,15 @@ class GiphyCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        ivImageView.backgroundColor = .red
+        ivImageView.backgroundColor = .gray.withAlphaComponent(0.1)
     }
 }
 
 //MARK: - Configure cell methods
 extension GiphyCollectionViewCell {
     func configure() {
-        guard let gifURL = self.gifURL else { return }
-        let gifImage = UIImage.gifImageWithURL(gifURL)
-        ivImageView.image = gifImage
+        guard let gifURLString = self.gifURL else { return }
+        guard let gifURL = URL(string: gifURLString) else { return }
+        ivImageView.sd_setImage(with: gifURL)
     }
 }

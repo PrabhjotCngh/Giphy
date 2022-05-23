@@ -7,58 +7,62 @@
 
 import UIKit
 
-class GifDetailItem: Hashable {
-    var giphyModel: [Int]
-    
-    init(giphyModel: [Int]) {
-      self.giphyModel = giphyModel
-    }
-
-    func hash(into hasher: inout Hasher) {
-      hasher.combine(identifier)
-    }
-
-    static func == (lhs: GifDetailItem, rhs: GifDetailItem) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-    
-    private let identifier = UUID()
-}
-
 class FavouriteViewController: UIViewController {
-    enum Section {
-      case giphyBody
-    }
-    
-    var item = [GifDetailItem]()
-    
-    var dataSource: UICollectionViewDiffableDataSource<Section, GifDetailItem>! = nil
+    /// IBOutlets
     @IBOutlet weak var cvCollectionView: UICollectionView!
     
+    /// Public instances
+    var dataSource: UICollectionViewDiffableDataSource<CollectionViewSections, GifDetailItem>! = nil
+
+    /// Private instances
+    private let viewModel = FavouriteViewModel()
+    
+    /// ViewController life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.getTopGifsList()
+        viewModel.getTrendingGifs()
         configureCollectionView()
         configureDataSource()
+        callbackHandler()
     }
 
 }
 
+//MARK: - Callback handler methods
 extension FavouriteViewController {
+    func callbackHandler() {
+        /// Listen to success callback from viewModel
+        viewModel.success = {
+            DispatchQueue.main.async {
+                self.dataSource.replaceItems(self.viewModel.gifDetailItemsList, in: .giphyBody)
+            }
+        }
+        
+        /// Listen to fail callback from viewModel
+        viewModel.fail = { error in
+            
+        }
+    }
+}
+
+//MARK: - CollectionView data source methods
+extension FavouriteViewController {
+    /// CollectionView is configured here
     func configureCollectionView() {
         cvCollectionView.collectionViewLayout = generateLayout()
         cvCollectionView.register(GiphyCollectionViewCell.nib, forCellWithReuseIdentifier: GiphyCollectionViewCell.identifier)
     }
     
+    /// Data is configured here
     func configureDataSource() {
       dataSource = UICollectionViewDiffableDataSource
-        <Section, GifDetailItem>(collectionView: cvCollectionView) {
+        <CollectionViewSections, GifDetailItem>(collectionView: cvCollectionView) {
           (collectionView: UICollectionView, indexPath: IndexPath, detailItem: GifDetailItem) -> UICollectionViewCell? in
           guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: GiphyCollectionViewCell.identifier,
             for: indexPath) as? GiphyCollectionViewCell else { fatalError("Could not create new cell") }
-            cell.gifURL = "\(detailItem.giphyModel[indexPath.row])"
+            cell.gifURL = detailItem.url
           return cell
       }
         // load our initial data
@@ -66,6 +70,7 @@ extension FavouriteViewController {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
+    /// CollectionView layout is configured here
     func generateLayout() -> UICollectionViewLayout {
       // We have three row styles
       // Style 1: 'Full'
@@ -138,40 +143,23 @@ extension FavouriteViewController {
       return layout
     }
     
-    func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<Section, GifDetailItem> {
-      var snapshot = NSDiffableDataSourceSnapshot<Section, GifDetailItem>()
-        let test = Array(0...100)
-        item = [GifDetailItem(giphyModel: test), GifDetailItem(giphyModel: test), GifDetailItem(giphyModel: test), GifDetailItem(giphyModel: test)]
-        snapshot.appendSections([Section.giphyBody])
-        snapshot.appendItems(item)
+    /// Snapshot is configured here
+    func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<CollectionViewSections, GifDetailItem> {
+      var snapshot = NSDiffableDataSourceSnapshot<CollectionViewSections, GifDetailItem>()
+      snapshot.appendSections([CollectionViewSections.giphyBody])
       return snapshot
-    }
-    
-    func getTopGifsList() {
-        let params = ["api_key":kAPIKey]
-        NetworkManager().fetchTrendingGifs(params) { [weak self] response in
-            
-            if let _StrongSelf = self {
-//                let test = Array(0...100)
-//                _StrongSelf.item = [GifDetailItem(giphyModel: test)]//[GifDetailItem(giphyModel: response.data)]
-//                DispatchQueue.main.async {
-//                    _StrongSelf.dataSource.replaceItems(_StrongSelf.item, in: .giphyBody)
-//                }
-            }
-        } fail: { [weak self] error in
-            if let _StrongSelf = self {
-            }
-        }
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension FavouriteViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
 }
 
+//MARK: - UICollectionViewDiffableDataSource
 extension UICollectionViewDiffableDataSource {
-    
+    /// Find current snapshot, delete and replace item from it
     func replaceItems(_ items : [ItemIdentifierType], in section: SectionIdentifierType) {
         var currentSnapshot = snapshot()
         let itemsOfSection = currentSnapshot.itemIdentifiers(inSection: section)

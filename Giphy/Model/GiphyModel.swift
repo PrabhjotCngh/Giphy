@@ -13,5 +13,14 @@ struct GiphyModel: Codable {
 
 struct GiphyDataModel: Codable {
     var id: String
+    var images: GiphyImagesModel
+}
+
+struct GiphyImagesModel: Codable {
+    var original: GiphyOriginalModel
+}
+
+struct GiphyOriginalModel: Codable {
     var url: String
 }
+

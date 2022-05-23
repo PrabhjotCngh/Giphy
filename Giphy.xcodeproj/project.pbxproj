@@ -31,6 +31,7 @@
 		DD9E13C3283997800047C799 /* GiphyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13C2283997800047C799 /* GiphyModel.swift */; };
 		DD9E13C72839A54E0047C799 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13C62839A54E0047C799 /* FavouriteViewController.swift */; };
 		DD9E13CA2839BCBC0047C799 /* FavouriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13C92839BCBC0047C799 /* FavouriteViewModel.swift */; };
+		DD9E13CD283C357A0047C799 /* GifDetailItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13CC283C357A0047C799 /* GifDetailItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		DD9E13C2283997800047C799 /* GiphyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyModel.swift; sourceTree = "<group>"; };
 		DD9E13C62839A54E0047C799 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		DD9E13C92839BCBC0047C799 /* FavouriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewModel.swift; sourceTree = "<group>"; };
+		DD9E13CC283C357A0047C799 /* GifDetailItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifDetailItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +257,7 @@
 			children = (
 				DD9E13CB2839BCC10047C799 /* View */,
 				DD9E13C82839BCA90047C799 /* ViewModel */,
+				DD9E13CC283C357A0047C799 /* GifDetailItem.swift */,
 			);
 			path = FavouriteViewController;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				DD9E13C0283994F90047C799 /* NetworkManager.swift in Sources */,
 				DD9E13B2283985B00047C799 /* ImageExtension.swift in Sources */,
 				DD9E13BE2839936D0047C799 /* Constants.swift in Sources */,
+				DD9E13CD283C357A0047C799 /* GifDetailItem.swift in Sources */,
 				DD9E13B928398FFB0047C799 /* HTTPTask.swift in Sources */,
 				DD9E13CA2839BCBC0047C799 /* FavouriteViewModel.swift in Sources */,
 				DD9E13C72839A54E0047C799 /* FavouriteViewController.swift in Sources */,
