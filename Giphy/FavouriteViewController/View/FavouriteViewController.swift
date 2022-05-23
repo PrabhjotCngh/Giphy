@@ -10,7 +10,7 @@ import UIKit
 class FavouriteViewController: UIViewController {
     /// IBOutlets
     @IBOutlet weak var cvCollectionView: UICollectionView!
-    
+
     /// Public instances
     var dataSource: UICollectionViewDiffableDataSource<CollectionViewSections, GifDetailItem>! = nil
 
@@ -26,7 +26,19 @@ class FavouriteViewController: UIViewController {
         configureDataSource()
         callbackHandler()
     }
-
+    
+    @IBAction func didChangeCollectionViewLayout(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            cvCollectionView.collectionViewLayout = generateLayoutForGridTab()
+        case 1:
+            cvCollectionView.collectionViewLayout = generateLayoutForListTab()
+        default:
+            break
+        }
+        cvCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+    }
+   
 }
 
 //MARK: - Callback handler methods
@@ -50,7 +62,7 @@ extension FavouriteViewController {
 extension FavouriteViewController {
     /// CollectionView is configured here
     func configureCollectionView() {
-        cvCollectionView.collectionViewLayout = generateLayout()
+        cvCollectionView.collectionViewLayout = generateLayoutForGridTab()
         cvCollectionView.register(GiphyCollectionViewCell.nib, forCellWithReuseIdentifier: GiphyCollectionViewCell.identifier)
     }
     
@@ -70,8 +82,27 @@ extension FavouriteViewController {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
+    func generateLayoutForListTab() -> UICollectionViewLayout {
+        // Full
+        let fullPhotoItem = NSCollectionLayoutItem(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(2/3)))
+        fullPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+        
+        let nestedGroup = NSCollectionLayoutGroup.vertical(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(12/9)),
+          subitems: [fullPhotoItem])
+
+        let section = NSCollectionLayoutSection(group: nestedGroup)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
+    
     /// CollectionView layout is configured here
-    func generateLayout() -> UICollectionViewLayout {
+    func generateLayoutForGridTab() -> UICollectionViewLayout {
       // We have three row styles
       // Style 1: 'Full'
       // A full width photo
@@ -80,13 +111,15 @@ extension FavouriteViewController {
       // Style 3: 'Triplet'
       // Three 1/3 width photos stacked horizontally
 
+      
       // Full
       let fullPhotoItem = NSCollectionLayoutItem(
         layoutSize: NSCollectionLayoutSize(
           widthDimension: .fractionalWidth(1.0),
           heightDimension: .fractionalWidth(2/3)))
       fullPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-
+      
+        
       // Main with pair
       let mainItem = NSCollectionLayoutItem(
         layoutSize: NSCollectionLayoutSize(
@@ -104,7 +137,7 @@ extension FavouriteViewController {
           widthDimension: .fractionalWidth(1/3),
           heightDimension: .fractionalHeight(1.0)),
         subitem: pairItem,
-        count: 2)
+        count: 1)
 
       let mainWithPairGroup = NSCollectionLayoutGroup.horizontal(
         layoutSize: NSCollectionLayoutSize(
@@ -136,7 +169,7 @@ extension FavouriteViewController {
         layoutSize: NSCollectionLayoutSize(
           widthDimension: .fractionalWidth(1.0),
           heightDimension: .fractionalWidth(16/9)),
-        subitems: [fullPhotoItem, mainWithPairGroup, tripletGroup, mainWithPairReversedGroup])
+        subitems: [fullPhotoItem, tripletGroup, mainWithPairGroup, mainWithPairReversedGroup])
 
       let section = NSCollectionLayoutSection(group: nestedGroup)
       let layout = UICollectionViewCompositionalLayout(section: section)

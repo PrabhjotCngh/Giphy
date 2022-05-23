@@ -21,7 +21,7 @@
 		DD9E139F28395C8C0047C799 /* GiphyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E139E28395C8C0047C799 /* GiphyUITestsLaunchTests.swift */; };
 		DD9E13AE28397FCA0047C799 /* GiphyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13AC28397FCA0047C799 /* GiphyCollectionViewCell.swift */; };
 		DD9E13AF28397FCA0047C799 /* GiphyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD9E13AD28397FCA0047C799 /* GiphyCollectionViewCell.xib */; };
-		DD9E13B2283985B00047C799 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13B1283985B00047C799 /* ImageExtension.swift */; };
+		DD9E13B2283985B00047C799 /* IBDesignableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13B1283985B00047C799 /* IBDesignableExtension.swift */; };
 		DD9E13B528398FC60047C799 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13B428398FC60047C799 /* Router.swift */; };
 		DD9E13B728398FE50047C799 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13B628398FE50047C799 /* EndPointType.swift */; };
 		DD9E13B928398FFB0047C799 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E13B828398FFB0047C799 /* HTTPTask.swift */; };
@@ -76,7 +76,7 @@
 		DD9E139E28395C8C0047C799 /* GiphyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DD9E13AC28397FCA0047C799 /* GiphyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyCollectionViewCell.swift; sourceTree = "<group>"; };
 		DD9E13AD28397FCA0047C799 /* GiphyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiphyCollectionViewCell.xib; sourceTree = "<group>"; };
-		DD9E13B1283985B00047C799 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		DD9E13B1283985B00047C799 /* IBDesignableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBDesignableExtension.swift; sourceTree = "<group>"; };
 		DD9E13B428398FC60047C799 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		DD9E13B628398FE50047C799 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
 		DD9E13B828398FFB0047C799 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 		DD9E13B0283985950047C799 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DD9E13B1283985B00047C799 /* ImageExtension.swift */,
+				DD9E13B1283985B00047C799 /* IBDesignableExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -523,7 +523,7 @@
 				DD9E137C28395C8A0047C799 /* AppDelegate.swift in Sources */,
 				DD9E13BB2839901D0047C799 /* WebAPIEndPoints.swift in Sources */,
 				DD9E13C0283994F90047C799 /* NetworkManager.swift in Sources */,
-				DD9E13B2283985B00047C799 /* ImageExtension.swift in Sources */,
+				DD9E13B2283985B00047C799 /* IBDesignableExtension.swift in Sources */,
 				DD9E13BE2839936D0047C799 /* Constants.swift in Sources */,
 				DD9E13CD283C357A0047C799 /* GifDetailItem.swift in Sources */,
 				DD9E13B928398FFB0047C799 /* HTTPTask.swift in Sources */,

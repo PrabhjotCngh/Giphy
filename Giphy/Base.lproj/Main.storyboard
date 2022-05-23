@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Favourite View Controller-->
         <scene sceneID="WAr-7p-V4Y">
             <objects>
                 <viewController id="fSn-1n-ypV" customClass="FavouriteViewController" customModule="Giphy" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pja-FW-w8z">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="107" width="414" height="706"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="49R-Rk-anY">
                                     <size key="itemSize" width="128" height="128"/>
@@ -41,26 +41,39 @@
                                     <outlet property="delegate" destination="fSn-1n-ypV" id="LIr-Uk-WVv"/>
                                 </connections>
                             </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Z4U-XH-ArI">
+                                <rect key="frame" x="16" y="60" width="382" height="32"/>
+                                <segments>
+                                    <segment title="Grid"/>
+                                    <segment title="List"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChangeCollectionViewLayoutWithSender:" destination="fSn-1n-ypV" eventType="valueChanged" id="tPo-Lf-pzv"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wx9-uk-4ew"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Wx9-uk-4ew" firstAttribute="trailing" secondItem="Pja-FW-w8z" secondAttribute="trailing" id="AgI-8e-2VF"/>
                             <constraint firstItem="Wx9-uk-4ew" firstAttribute="bottom" secondItem="Pja-FW-w8z" secondAttribute="bottom" id="CN2-NH-D8a"/>
+                            <constraint firstItem="Pja-FW-w8z" firstAttribute="top" secondItem="Z4U-XH-ArI" secondAttribute="bottom" constant="16" id="DUE-Fk-HzF"/>
                             <constraint firstItem="Pja-FW-w8z" firstAttribute="leading" secondItem="Wx9-uk-4ew" secondAttribute="leading" id="LOi-3Y-fx1"/>
-                            <constraint firstItem="Pja-FW-w8z" firstAttribute="top" secondItem="Wx9-uk-4ew" secondAttribute="top" id="NX5-OS-U1G"/>
+                            <constraint firstItem="Z4U-XH-ArI" firstAttribute="leading" secondItem="Wx9-uk-4ew" secondAttribute="leading" constant="16" id="RQt-Jp-DJg"/>
+                            <constraint firstItem="Wx9-uk-4ew" firstAttribute="trailing" secondItem="Z4U-XH-ArI" secondAttribute="trailing" constant="16" id="juw-vb-bUU"/>
+                            <constraint firstItem="Z4U-XH-ArI" firstAttribute="top" secondItem="Wx9-uk-4ew" secondAttribute="top" constant="16" id="rMX-Fg-xRL"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="15y-SH-cRe"/>
+                    <tabBarItem key="tabBarItem" systemItem="topRated" id="15y-SH-cRe"/>
                     <connections>
                         <outlet property="cvCollectionView" destination="Pja-FW-w8z" id="Qb8-fI-ZJv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="diG-wo-pqi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-389" y="226"/>
+            <point key="canvasLocation" x="-391.304347826087" y="290.625"/>
         </scene>
-        <!--Item 1-->
+        <!--Search View Controller-->
         <scene sceneID="iAb-a8-ZTb">
             <objects>
                 <viewController id="dv6-9z-UES" customClass="SearchViewController" customModule="Giphy" customModuleProvider="target" sceneMemberID="viewController">
@@ -70,7 +83,7 @@
                         <viewLayoutGuide key="safeArea" id="4fm-Qz-7Ja"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="FgU-56-oiD"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="FgU-56-oiD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QJ0-0g-T5w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
