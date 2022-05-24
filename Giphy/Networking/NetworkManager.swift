@@ -29,7 +29,20 @@ struct NetworkManager {
         }
     }
     
-    func fetchSearchedGif() {
-        
+    func fetchSearchedGifs(_ params: [String: Any], success: @escaping (GiphyModel)->(), fail: @escaping (Error)->()) {
+        Router().request(WebApiType.searchGifs(urlParams: params)) { data, response, error in
+            if let data = data {
+                do {
+                    let jsonModel = try JSONDecoder().decode(GiphyModel.self, from: data)
+                    success(jsonModel)
+                } catch {
+                    fail(error)
+                }
+            }
+            
+            if let error = error {
+                fail(error)
+            }
+        }
     }
 }

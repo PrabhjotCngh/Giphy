@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavouriteViewController: UIViewController {
+class TrendingViewController: UIViewController {
     /// IBOutlets
     @IBOutlet weak var cvCollectionView: UICollectionView!
 
@@ -15,7 +15,7 @@ class FavouriteViewController: UIViewController {
     var dataSource: UICollectionViewDiffableDataSource<CollectionViewSections, GifDetailItem>! = nil
 
     /// Private instances
-    private let viewModel = FavouriteViewModel()
+    private let viewModel = TrendingViewModel()
     
     /// ViewController life cycle methods
     override func viewDidLoad() {
@@ -27,6 +27,7 @@ class FavouriteViewController: UIViewController {
         callbackHandler()
     }
     
+    /// Segment control method to switch between Grid and List view
     @IBAction func didChangeCollectionViewLayout(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -42,7 +43,7 @@ class FavouriteViewController: UIViewController {
 }
 
 //MARK: - Callback handler methods
-extension FavouriteViewController {
+extension TrendingViewController {
     func callbackHandler() {
         /// Listen to success callback from viewModel
         viewModel.success = {
@@ -53,13 +54,15 @@ extension FavouriteViewController {
         
         /// Listen to fail callback from viewModel
         viewModel.fail = { error in
-            
+            DispatchQueue.main.async {
+                Utility.displayAlert(title: AlertViewConstants.error, message: AlertViewConstants.errorMessage)
+            }
         }
     }
 }
 
 //MARK: - CollectionView data source methods
-extension FavouriteViewController {
+extension TrendingViewController {
     /// CollectionView is configured here
     func configureCollectionView() {
         cvCollectionView.collectionViewLayout = generateLayoutForGridTab()
@@ -185,20 +188,8 @@ extension FavouriteViewController {
 }
 
 //MARK: - UICollectionViewDelegate
-extension FavouriteViewController: UICollectionViewDelegate {
+extension TrendingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
 }
 
-//MARK: - UICollectionViewDiffableDataSource
-extension UICollectionViewDiffableDataSource {
-    /// Find current snapshot, delete and replace item from it
-    func replaceItems(_ items : [ItemIdentifierType], in section: SectionIdentifierType) {
-        var currentSnapshot = snapshot()
-        let itemsOfSection = currentSnapshot.itemIdentifiers(inSection: section)
-        currentSnapshot.deleteItems(itemsOfSection)
-        currentSnapshot.appendItems(items, toSection: section)
-        currentSnapshot.reloadSections([section])
-        apply(currentSnapshot, animatingDifferences: true)
-    }
-}

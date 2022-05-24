@@ -11,7 +11,7 @@ enum CollectionViewSections {
   case giphyBody
 }
 
-class FavouriteViewModel {
+class TrendingViewModel {
     /// Public Instances
     var gifDetailItemsList = [GifDetailItem]()
     
@@ -22,7 +22,7 @@ class FavouriteViewModel {
 }
 
 //MARK: - API requests
-extension FavouriteViewModel {
+extension TrendingViewModel {
     /// Fetch Trending Gifs list
     func getTrendingGifs() {
         let params = ["api_key":kAPIKey]
